@@ -6,28 +6,55 @@ namespace Eloi.PongTracking
 {
     public class PongMono_SetMaterialsAndRendererWithTexture : MonoBehaviour
     {
-        public Texture2D m_texture;
         public Renderer [] m_renderer;
         public Material[] m_material;
-        public void SetTexture(Texture2D texture)
+
+        public void Reset()
         {
+            m_renderer = GetComponentsInChildren<Renderer>(true);
+          
+        }
+
+        public void SetTexture(WebCamTexture texture)
+        {
+
             if (m_renderer == null || m_material == null)
             {
                 return;
             }
-            m_texture = texture;
             foreach (var rend in m_renderer)
             {
                 if (rend != null)
                 {
-                    rend.material.mainTexture = m_texture;
+                    rend.material.mainTexture = texture;
                 }
             }
             foreach (var mat in m_material)
             {
                 if (mat != null)
                 {
-                    mat.mainTexture = m_texture;
+                    mat.mainTexture = texture;
+                }
+            }
+        }
+        public void SetTexture(Texture2D texture)
+        {
+            if (m_renderer == null || m_material == null)
+            {
+                return;
+            }
+            foreach (var rend in m_renderer)
+            {
+                if (rend != null)
+                {
+                    rend.material.mainTexture = texture;
+                }
+            }
+            foreach (var mat in m_material)
+            {
+                if (mat != null)
+                {
+                    mat.mainTexture = texture;
                 }
             }
         }

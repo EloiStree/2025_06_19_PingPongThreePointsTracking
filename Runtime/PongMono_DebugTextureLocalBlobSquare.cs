@@ -28,9 +28,9 @@ namespace Eloi.PongTracking
 
             foreach (LocalBlobTexture localBlobTexture in m_localBlobsTextureWithSource.m_localBlobTextures)
             {
-                Texture2D refTexture = localBlobTexture.m_texture;
-                int xOffset = localBlobTexture.m_globalLeftX;
-                int yOffset = localBlobTexture.m_globalBottomY;
+                Texture2D refTexture = localBlobTexture.m_localTextureOfBlob;
+                int xOffset = localBlobTexture.m_globalLeftPixelX;
+                int yOffset = localBlobTexture.m_globalBottomPixelY;
                 int height = refTexture.height;
                 for (int y = 0; y < refTexture.height; y++)
                 {
@@ -42,6 +42,15 @@ namespace Eloi.PongTracking
                 }
 
             }
+
+
+
+
+
+
+
+
+
             m_texture.Apply();
             if (m_onTextureComputed != null)
             {

@@ -38,26 +38,23 @@ namespace Eloi.PongTracking
                 Texture2D t = m_localBlobsTextureWithSource.m_groupOfBlobs.m_texture;
                 int width = t.width;
                 int height = t.height;
-                Vector2 centerLeftRight = localBlobTexture.m_globalSquareCenterCoordinate;
-                centerLeftRight.x /= width;
-                centerLeftRight.y /= height;
 
+                Vector2 globalPixelCoordinate = localBlobTexture.m_globalSquareCenterCoordinate;
 
-                Quaternion rotation = m_leftDownRoot.rotation;
-                Vector3 directionGlobal = m_rightDownCornerPoint.position - m_leftDownRoot.position;
-                Vector3 directionLocal = Quaternion.Inverse(rotation) * directionGlobal;
-                Vector3 localPosition = new Vector3(
-                    centerLeftRight.x * directionLocal.x,
-                    centerLeftRight.y * directionLocal.y,
-                    0f
-                );
-                Vector3 globalPosition = (rotation * localPosition) + m_leftDownRoot.position;
-               
+                GlobalPixelToUnityWorldQuad(width, height, m_leftDownRoot, m_rightDownCornerPoint, globalPixelCoordinate,
+                    out Vector3 globalPosition, out Quaternion rotation);
+
+                Vector2 globalPixelFarCoordinate = localBlobTexture.m_globalBorderMaxCoordinatePixel;
+                GlobalPixelToUnityWorldQuad(width, height, m_leftDownRoot, m_rightDownCornerPoint, globalPixelFarCoordinate,
+                    out Vector3 globalPositionFar, out Quaternion rotationFar);
+                float deltaSize = Vector3.Distance(globalPosition, globalPositionFar)*2;
+
                 if (index < m_blobCenterPoints.Length)
                 {
                     m_blobCenterPoints[index].gameObject.SetActive(true);
                     m_blobCenterPoints[index].position = globalPosition;
                     m_blobCenterPoints[index].rotation = rotation;
+                    m_blobCenterPoints[index].localScale = new Vector3(deltaSize, deltaSize, deltaSize);
                 }
               
 
@@ -65,6 +62,34 @@ namespace Eloi.PongTracking
             }
 
         }
+
+        private void GlobalPixelToUnityWorldQuad(
+          int width,
+          int height,
+          Transform rootQuadStart,
+          Transform corderQuadEnd,
+          Vector2 globalPixelCoordinate,
+          out Vector3 globalPosition,
+          out Quaternion globalRotation)
+        {
+            globalPixelCoordinate.x /= width;
+            globalPixelCoordinate.y /= height;
+
+
+            globalRotation = rootQuadStart.rotation;
+            Vector3 directionGlobal = corderQuadEnd.position - rootQuadStart.position;
+            Vector3 directionLocal = Quaternion.Inverse(globalRotation) * directionGlobal;
+            Vector3 localPosition = new Vector3(
+                globalPixelCoordinate.x * directionLocal.x,
+                globalPixelCoordinate.y * directionLocal.y,
+                0f
+            );
+            globalPosition = (globalRotation * localPosition) + rootQuadStart.position;
+            globalRotation = Quaternion.LookRotation(directionGlobal, Vector3.up);
+
+        }
+
+
 
     }
 }
