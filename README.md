@@ -4,3 +4,4 @@ Try to track a triangle using a table tennis ball and a 40mm vinyl sticker.
 ![image](https://github.com/user-attachments/assets/3eca41a7-4527-46e4-b99d-c6ff8c2357ce)
 ![image](https://github.com/user-attachments/assets/d82e0bcd-b624-4ce5-81be-13d56cac7990)
 ![image](https://github.com/user-attachments/assets/a1bbecc9-5d1e-4672-a823-99e826110974)
+![image](https://github.com/user-attachments/assets/c5059d81-8b5d-441e-9021-e711865a08bc)
