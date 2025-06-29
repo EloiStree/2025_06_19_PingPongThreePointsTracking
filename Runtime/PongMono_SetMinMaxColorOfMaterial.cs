@@ -6,10 +6,12 @@ public class PongMono_SetMinMaxColorOfMaterial : MonoBehaviour
 
     public Color32 m_minColorRange;
     public Color32 m_maxColorRange;
+    public float m_flatColorThresholdPercent;
     public Material m_materialToAffect;
 
     public string m_minColorName = "_ColorMin";
     public string m_maxColorName = "_ColorMax";
+    public string m_flatColorThresholdName = "_ColorMax";
 
 
 
@@ -22,6 +24,17 @@ public class PongMono_SetMinMaxColorOfMaterial : MonoBehaviour
     private void OnValidate()
     {
         SetMinMaxColorRange(m_minColorRange, m_maxColorRange);
+    }
+
+    public void SetFlatColorThreshold(byte thresholdPercent100)
+    {
+
+        m_flatColorThresholdPercent = thresholdPercent100 / 100f;
+    }
+    public void SetFlatColorThreshold(float thresholdPercent01)
+    {
+
+        m_flatColorThresholdPercent = thresholdPercent01;
     }
 
     public void SetMinMaxColorRange(Color32 minColor, Color32 maxColor) {

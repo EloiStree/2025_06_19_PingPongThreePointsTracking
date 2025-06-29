@@ -1,5 +1,6 @@
 
 using System.Collections.Generic;
+using Eloi.PongTracking;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -9,7 +10,7 @@ public class PongMono_ColorCollectionToMinMax : MonoBehaviour
     public System.Collections.Generic.List<Color32> m_colorCollection = new List<Color32> ();
     public Color32 m_minColorRange;
     public Color32 m_maxColorRange;
-
+    public string m_exportAsText;
     public Color32[] m_sampleColors = new Color32 [10];
 
     public UnityEvent<Color32> m_onChangedMinColor;
@@ -79,6 +80,6 @@ public class PongMono_ColorCollectionToMinMax : MonoBehaviour
         m_onChangedMaxColor?.Invoke(m_maxColorRange);
         m_onChangedSampleColor?.Invoke(m_sampleColors);
 
-
+        PongColorImportExportUtility.BuildExportMinMaxColor32AsDigit(out  m_exportAsText, m_minColorRange, m_maxColorRange) ;
     }
 }
