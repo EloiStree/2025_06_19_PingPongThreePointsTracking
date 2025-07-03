@@ -8,7 +8,7 @@ namespace Eloi.PongTracking
 
 
 
-    public class PongMono_SliderToMinMaxColor : MonoBehaviour
+    public class PongMono_Byte255ToMinMaxColor : MonoBehaviour
     {
 
 
